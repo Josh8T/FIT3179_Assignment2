@@ -12,16 +12,39 @@
   
 </head>
 <body>
-  
-<div id="scatter_plot"></div>
 
-<script type="text/javascript">
+  <div id="choropleth_map"></div>
 
-  var spec2 = "js/scatterplot_annotated.vg.json";
-  vegaEmbed('#scatter_plot', spec2).then(function(result) {
-    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-  }).catch(console.error);
-</script>
+  <div id="pie_chart"></div>
+
+  <div id="bar_chart"></div>
+
+  <div id="scatter_plot"></div>
+
+  <script type="text/javascript">
+    var spec0 = "js/choropleth.vg.json";
+    vegaEmbed('#choropleth_map', spec0).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var spec2 = "js/piechart.vg.json";
+    vegaEmbed('#pie_chart', spec2).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var spec3 = "js/barchart.vg.json";
+    vegaEmbed('#bar_chart', spec3).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    var spec4 = "js/scatterplot_annotated.vg.json";
+    vegaEmbed('#scatter_plot', spec4).then(function(result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+  </script>
+
+
+
 
 </body>
 </html>

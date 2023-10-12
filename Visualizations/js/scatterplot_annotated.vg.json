@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 650,
-  "height": 650,
+  "width": 600,
+  "height": 600,
   "title": "Unicorn Startups Globally",
   "data": {
     "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
@@ -98,14 +98,14 @@
         "color": {"value": "black"},
         "opacity":{
           "condition": {
-            "test": "datum['Country'] == 'China' || datum['Country'] == 'United States'|| datum['Country'] =='India'|| datum['Country'] == 'Indonesia'|| datum['Country'] == 'Australia'",
+            "test": "datum['Country'] == 'China' || datum['Country'] == 'United States of America'|| datum['Country'] =='India'|| datum['Country'] == 'Indonesia'|| datum['Country'] == 'Australia'",
             "value": 1
           },
           "value": 0
         },
         "tooltip":[
           {"field": "Country", "type": "nominal"},
-          {"aggregate": "count", "field": "Country", "type": "quantitative", "title": "Num of Company"},
+          {"aggregate": "count", "field": "Country", "type": "quantitative", "title": "Number of Startups"},
           {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)"}
         ]
       }

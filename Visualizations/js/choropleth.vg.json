@@ -1,0 +1,75 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 600,
+    "height": 600,
+    "title": {
+      "text": "Distribution of Unicorn Startups in the per Country",
+      "fontSize": 20
+    },
+    "layer": [
+        {
+            "data":{
+                "url": "https://raw.githubusercontent.com/KaneSec/vega_lite/main/2_symbol_map/js/ne_110m_admin_0_countries.topojson",
+                "format": {
+                    "type": "topojson",
+                    "feature": "ne_110m_admin_0_countries"
+                }
+            },
+            "projection": {"type":"equalEarth"},
+            "mark": {
+                "type": "geoshape",
+                "fill": "#ddd",
+                "stroke": "white",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "tooltip":[
+                    {"field":"properties.NAME", "type": "nominal", "title":"Country"}
+                ]
+            }
+        },
+        {
+            "data":{
+                "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+            },
+            "transform": [
+                {
+                    "lookup": "Country",
+                    "from":{
+                        "data":{
+                            "url": "https://raw.githubusercontent.com/KaneSec/vega_lite/main/2_symbol_map/js/ne_110m_admin_0_countries.topojson",
+                            "format":{
+                                "type": "topojson",
+                                "feature": "ne_110m_admin_0_countries"
+                            }
+                        },
+                        "key": "properties.NAME"
+                    },
+                    "as":"geo"
+                }
+            ],
+            "mark": { "type": "geoshape"},
+            "encoding": {
+                "shape": {
+                    "field":"geo",
+                    "type":"geojson"
+                },
+                "color": {
+                    "field":"Country",
+                    "aggregate":"count",
+                    "type":"quantitative",
+                    "scale":{
+                        "type": "threshold",
+                        "domain":[1, 5, 50, 100, 300],
+                        "range":["#F3E2F3", "#E2B5E3", "#D187D4", "#C769C9", "#953597", "#602F53"]
+                    }
+                },
+                "tooltip":[
+                    {"field":"Country", "type": "nominal"},
+                    {"aggregate": "count", "field": "Country", "type": "quantitative", "title": "Number of Startups"}
+                ]
+            }
+        }
+
+    ]
+}    

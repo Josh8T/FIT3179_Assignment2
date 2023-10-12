@@ -26,9 +26,10 @@ df = df.merge(country_to_continent_df, on='Country', how='left')
 #%%
 df[df.isna().any(axis=1)]
 #%%
-df.loc[(df['Country'] == 'Singapore') & (df['City'].isnull() | (df['City'] == '')), 'City'] = 'Singapore'
+df['Country'] = df['Country'].replace('United States', 'United States of America')
 
-
+#%%
+df
 # %%
 # Save the cleaned data to a new CSV file
 cleaned_csv_file = 'unicorn_startup_companies_cleaned.csv'
