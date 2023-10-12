@@ -1,0 +1,52 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 500,
+    "height": 500,
+    "title": {
+      "text": "Distribution of Startup Industries",
+      "fontSize": 20
+    },
+    "data": {
+      "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+    },
+    "layer": [
+      {
+        "mark": {
+          "type": "arc",
+          "tooltip": true,
+          "stroke": "#fff"
+        }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "radius": 205,
+          "fontStyle": "italic",
+          "fontSize": 14
+        },
+        "encoding": {
+          "text": {
+            "field": "Industry",
+            "type": "nominal"
+          },
+          "color": {
+            "value": "black"
+          }
+        }
+      }
+    ],
+    "encoding": {
+      "theta": {
+        "field": "Industry",
+        "type": "quantitative",
+        "aggregate": "count",
+        "stack": true
+      },
+      "color": {
+        "field": "Industry",
+        "type": "nominal",
+        "legend": null
+      }
+    }
+  }
+  

@@ -1,0 +1,80 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 800,
+  "height": 600,
+  "title": "Count of Companies of each Industry",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+  },
+  "params": [
+    {
+      "name": "continent_selection",
+      "bind":{
+        "input": "select",
+        "options":[
+          null,
+          "North America",
+          "South America",
+          "Europe",
+          "Asia",
+          "Oceania",
+          "Africa"
+        ],
+        "labels": [
+          "Show All",
+          "North America",
+          "South America",
+          "Europe",
+          "Asia",
+          "Oceania",
+          "Africa"
+        ],
+        "name": "Continent: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "continent_selection == null || datum.Continent == continent_selection"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Valuation ($B)",
+      "type": "quantitative",
+      "title": "Total Valuation ($B)",
+      "aggregate": "sum"
+    },
+    "y": {
+      "field": "Country",
+      "type": "ordinal",
+      "title": "Countries",
+      "sort": "-x"
+    }
+  },
+  "layer": [
+    {
+      "mark":{"type": "bar",  "cornerRadiusEnd": 2},
+      "encoding": {
+        "color":{"value":"#654DA3"},
+        "tooltip":[
+          {"field": "Country", "type": "nominal"},
+          {"aggregate": "count", "field": "Country", "type": "quantitative", "title": "Num of Company"},
+          {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)"}
+          ]
+        }
+      },
+    {
+      "mark": {
+        "type": "text",
+        "align":"left",
+        "aria":false,
+        "fontStyle":"italic"
+      },
+      "encoding": {
+        "text":{"field": "Valuation ($B)", "type": "quantitative", "aggregate":"sum", "format": ".2f"}
+      }
+    }
+  ]
+}
+

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "background": "white",
+  "padding": 5,
+  "width": 800,
+  "height": 600,
+  "title": {
+    "text": "Distribution of Startup Industries",
+    "fontSize": 20,
+    "frame": "group"
+  },
+  "style": "view",
+  "data": [
+    {
+      "name": "source_0",
+      "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv",
+      "format": {"type": "csv", "delimiter": ","},
+      "transform": [
+        {
+          "type": "aggregate",
+          "groupby": ["Industry"],
+          "ops": ["count"],
+          "fields": [null],
+          "as": ["__count"]
+        },
+        {
+          "type": "stack",
+          "groupby": [],
+          "field": "__count",
+          "sort": {"field": ["Industry"], "order": ["ascending"]},
+          "as": ["__count_start", "__count_end"],
+          "offset": "zero"
+        }
+      ]
+    }
+  ],
+  "marks": [
+    {
+      "name": "layer_0_marks",
+      "type": "arc",
+      "style": ["arc"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "tooltip": {
+            "signal": "{\"Count of Records\": format(datum[\"__count\"], \"\"), \"Industry\": isValid(datum[\"Industry\"]) ? datum[\"Industry\"] : \"\"+datum[\"Industry\"]}"
+          },
+          "fill": {"scale": "color", "field": "Industry"},
+          "description": {
+            "signal": "\"Count of Records: \" + (format(datum[\"__count\"], \"\")) + \"; Industry: \" + (isValid(datum[\"Industry\"]) ? datum[\"Industry\"] : \"\"+datum[\"Industry\"])"
+          },
+          "x": {"signal": "width", "mult": 0.5},
+          "y": {"signal": "height", "mult": 0.5},
+          "outerRadius": {"signal": "min(width,height)/2"},
+          "innerRadius": {"value": 0},
+          "startAngle": {"scale": "theta", "field": "__count_end"},
+          "endAngle": {"scale": "theta", "field": "__count_start"}
+        }
+      }
+    },
+    {
+      "name": "layer_1_marks",
+      "type": "text",
+      "style": ["text"],
+      "from": {"data": "source_0"},
+      "encode": {
+        "update": {
+          "radius": {"value": 205},
+          "fontSize": {"value": 14},
+          "fontStyle": {"value": "italic"},
+          "fill": {"value": "black"},
+          "description": {
+            "signal": "\"Count of Records: \" + (format(datum[\"__count\"], \"\")) + \"; Industry: \" + (isValid(datum[\"Industry\"]) ? datum[\"Industry\"] : \"\"+datum[\"Industry\"])"
+          },
+          "x": {"signal": "width", "mult": 0.5},
+          "y": {"signal": "height", "mult": 0.5},
+          "text": {
+            "signal": "isValid(datum[\"Industry\"]) ? datum[\"Industry\"] : \"\"+datum[\"Industry\"]"
+          },
+          "align": {"value": "center"},
+          "baseline": {"value": "middle"},
+          "theta": {
+            "signal": "scale(\"theta\", 0.5 * datum[\"__count_start\"] + 0.5 * datum[\"__count_end\"])"
+          }
+        }
+      }
+    }
+  ],
+  "scales": [
+    {
+      "name": "theta",
+      "type": "linear",
+      "domain": {
+        "data": "source_0",
+        "fields": ["__count_start", "__count_end"]
+      },
+      "range": [0, 6.283185307179586],
+      "zero": true
+    },
+    {
+      "name": "color",
+      "type": "ordinal",
+      "domain": {"data": "source_0", "field": "Industry", "sort": true},
+      "range": "category"
+    }
+  ],
+  "config": {}
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+</head>
+<body>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 650,
+  "height": 650,
+  "title": "Unicorn Startups Globally",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+  },
+  "params": [
+    {
+      "name": "continent_selection",
+      "bind": {
+        "input": "select",
+        "options": [
+          null,
+          "North America",
+          "South America",
+          "Europe",
+          "Asia",
+          "Oceania",
+          "Africa"
+        ],
+        "labels": [
+          "Show All",
+          "North America",
+          "South America",
+          "Europe",
+          "Asia",
+          "Oceania",
+          "Africa"
+        ],
+        "name": "Continent: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "continent_selection == null || datum.Continent == continent_selection"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Valuation ($B)",
+      "type": "quantitative",
+      "title": "Total Valuation ($B)",
+      "aggregate": "sum",
+      "axis": {"tickCount": 3},
+      "scale": {"type": "log", "domain": [1, 3000]}
+    },
+    "y": {
+      "aggregate": "count",
+      "field": "Country",
+      "type": "quantitative",
+      "title": "Number of Companies",
+      "axis": {"tickCount": 3},
+      "scale": {"type": "log", "domain": [1, 1000]}
+    }
+  },
+  "layer": [
+    {
+      "mark": "circle",
+      "encoding": {
+        "size": {
+          "field": "Country",
+          "type": "quantitative",
+          "aggregate": "count",
+          "title": "Number of Companies",
+          "scale": {
+            "type": "threshold",
+            "domain": [0, 1, 5, 50, 100, 200],
+            "range": [1, 10, 100, 300, 500, 1000, 4000]
+          },
+          "legend": {"format": ".1s"}
+        },
+        "color": {"field": "Country", "type": "nominal", "title": "Country"},
+        "tooltip": [
+          {"field": "Country", "type": "nominal"},
+          {
+            "aggregate": "count",
+            "field": "Country",
+            "type": "quantitative",
+            "title": "Num of Company"
+          },
+          {
+            "aggregate": "sum",
+            "field": "Valuation ($B)",
+            "type": "quantitative",
+            "title": "Total Valuation ($B)"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "dx": -12,
+        "fontSize": 11.5,
+        "fontStyle": "italic"
+      },
+      "encoding": {
+        "text": {"field": "Country", "type": "nominal"},
+        "color": {"value": "black"},
+        "opacity": {
+          "condition": {
+            "test": "datum['Country'] == 'China' || datum['Country'] == 'United States'|| datum['Country'] =='India'|| datum['Country'] == 'Indonesia'|| datum['Country'] == 'Australia'",
+            "value": 1
+          },
+          "value": 0
+        },
+        "tooltip": [
+          {"field": "Country", "type": "nominal"},
+          {
+            "aggregate": "count",
+            "field": "Country",
+            "type": "quantitative",
+            "title": "Num of Company"
+          },
+          {
+            "aggregate": "sum",
+            "field": "Valuation ($B)",
+            "type": "quantitative",
+            "title": "Total Valuation ($B)"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {}
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
