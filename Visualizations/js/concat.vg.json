@@ -1,0 +1,159 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "linechart visualizing the total evaluation of unicorn startups over time",
+    "data":{
+        "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+    },
+    "vconcat":[
+        {
+            "width": 800,
+            "height": 600,
+            "layer": [
+                {
+                    "data":{
+                        "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/oceans.topojson",
+                        "format":{
+                            "type": "topojson",
+                            "feature": "oceans"
+                        }
+                    },
+                    "mark": {"type": "geoshape", "fill": "#97dbee"} 
+                },
+                {
+                    "data":{
+                        "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/worldmap.topojson",
+                        "format":{
+                            "type": "topojson",
+                            "feature": "ne_110m_graticules_30"
+                        }
+                    },
+                    "mark": {"type": "geoshape", "stroke":"white", "fill":null}
+                },
+                {
+                    "data":{
+                        "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/worldmap.topojson",
+                        "format": {
+                            "type": "topojson",
+                            "feature": "ne_110m_admin_0_countries"
+                        }
+                    },
+                    "transform": [
+                        {
+                          "calculate": "'Data is not available in ' + datum.properties.NAME",
+                          "as": "note"
+                        }
+                      ],
+                    "projection": {"type":"equalEarth"},
+                    "mark": {
+                        "type": "geoshape",
+                        "fill": "#ddd",
+                        "stroke": "white",
+                        "strokeWidth": 1
+                    },
+                    "encoding": {
+                        "tooltip":{"field":"note"}
+                    }
+                },
+                {
+                    "data":{
+                        "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+                    },
+                    "transform": [
+                        {
+                            "lookup": "Country",
+                            "from":{
+                                "data":{
+                                    "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/worldmap.topojson",
+                                    "format":{
+                                        "type": "topojson",
+                                        "feature": "ne_110m_admin_0_countries"
+                                    }
+                                },
+                                "key": "properties.NAME"
+                            },
+                            "as":"geo"
+                        },
+                        {"filter":{"param": "brush"}}
+                    ],
+                    "mark": { "type": "geoshape"},
+                    "encoding": {
+                        "shape": {
+                            "field":"geo",
+                            "type":"geojson"
+                        },
+                        "color": {
+                            "title":"Number of Unicorns",
+                            "field":"Country",
+                            "aggregate":"count",
+                            "type":"quantitative",
+                            "scale":{
+                                "type": "threshold",
+                                "domain":[1, 5, 50, 100, 200],
+                                "range":["#F3E2F3", "#E2B5E3", "#D187D4", "#C769C9", "#953597", "#602F53"]
+                            }
+                        },
+                        "tooltip":[
+                            {"field":"Country", "type": "nominal"},
+                            {"aggregate": "count", "field": "Country", "type": "quantitative", "title": "Number of Startups"},
+                            {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)", "format":".2f"},
+                            {"aggregate": "average", "field": "Valuation ($B)", "type": "quantitative", "title": "Average Valuation ($B)", "format":".2f"}
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "width": 800,
+            "height": 400,
+            "mark":{"type": "area","line":true,"point":true},
+            "encoding": {
+                "x":{
+                    "field":"Date Joined",
+                    "type": "temporal",
+                    "scale":{"domain":{"param": "brush"}},
+                    "timeUnit":"binnedutcyearmonth",
+                    "title":"Date Joined (Month-Year)"
+                },
+                "y":{
+                    "field":"Valuation ($B)",
+                    "aggregate":"sum",
+                    "type": "quantitative",
+                    "title": "Total Valuation ($B)"
+                },
+                "tooltip":[
+                    {"aggregate": "count", "field": "Company", "type": "quantitative", "title": "Number of Startups Joined"},
+                    {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)", "format":".2f"},
+                    {"field":"Date Joined", "timeUnit":"binnedutcyearmonth", "title":"Date Joined"}
+                ]
+            }
+        },
+        {
+            "width":800,
+            "height":60,
+            "mark":"line",
+            "params": [
+                {
+                    "name": "brush",
+                    "select":{
+                        "type": "interval",
+                        "encodings": ["x"]
+                    }
+                }
+            ],
+            "encoding": {
+                "x":{
+                    "field":"Date Joined",
+                    "type": "temporal",
+                    "timeUnit":"year"
+                },
+                "y":{
+                    "field":"Valuation ($B)",
+                    "aggregate":"sum",
+                    "type": "quantitative",
+                    "axis":{"tickCount":3, "grid": false},
+                    "title": "Total Valuation ($B)"
+                }
+            }
+        }
+    ]
+}
