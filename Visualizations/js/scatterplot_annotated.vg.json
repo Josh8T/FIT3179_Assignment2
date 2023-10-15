@@ -73,9 +73,27 @@
           "legend": {"format": ".1s"}
         },
         "color": {
-          "field": "Country",
+          "field": "Continent",
           "type": "nominal",
-          "title": "Country"
+          "title": "Continent",
+          "scale":{
+            "domain":[
+              "North America",
+              "South America",
+              "Europe",
+              "Asia",
+              "Oceania",
+              "Africa"
+            ],
+            "range":[                
+              "#E35A01", 
+              "#ADA7A7", 
+              "#DAD870", 
+              "#B7AC44", 
+              "#FFCD58",
+              "#DF362D"
+            ]
+          }
         },
         "tooltip":[
           {"field": "Country", "type": "nominal"},
@@ -98,7 +116,7 @@
         "color": {"value": "black"},
         "opacity":{
           "condition": {
-            "test": "datum['Country'] == 'China' || datum['Country'] == 'United States of America'|| datum['Country'] =='India'|| datum['Country'] == 'Indonesia'|| datum['Country'] == 'Australia'",
+            "test": "datum['Country'] == 'China' || datum['Country'] == 'United States of America'|| datum['Country'] =='India'|| datum['Country'] == 'Indonesia'|| datum['Country'] == 'Singapore'",
             "value": 1
           },
           "value": 0
