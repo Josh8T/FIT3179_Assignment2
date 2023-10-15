@@ -1,0 +1,62 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "linechart visualizing the total evaluation of unicorn startups over time",
+    "data":{
+        "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+    },
+    "vconcat":[
+        {
+            "width": 800,
+            "height": 400,
+            "mark":{"type": "area","line":true,"point":true},
+            "encoding": {
+                "x":{
+                    "field":"Date Joined",
+                    "type": "temporal",
+                    "scale":{"domain":{"param": "brush"}},
+                    "timeUnit":"binnedutcyearmonth",
+                    "title":"Date Joined (Month-Year)"
+                },
+                "y":{
+                    "field":"Valuation ($B)",
+                    "aggregate":"sum",
+                    "type": "quantitative",
+                    "title": "Total Valuation ($B)"
+                },
+                "tooltip":[
+                    {"aggregate": "count", "field": "Company", "type": "quantitative", "title": "Number of Startups Joined"},
+                    {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)", "format":".2f"},
+                    {"field":"Date Joined", "timeUnit":"binnedutcyearmonth", "title":"Date Joined"}
+                ]
+            }
+        },
+        {
+            "width":800,
+            "height":60,
+            "mark":"line",
+            "params": [
+                {
+                    "name": "brush",
+                    "select":{
+                        "type": "interval",
+                        "encodings": ["x"]
+                    }
+                }
+            ],
+            "encoding": {
+                "x":{
+                    "field":"Date Joined",
+                    "type": "temporal",
+                    "timeUnit":"year"
+                },
+                "y":{
+                    "field":"Valuation ($B)",
+                    "aggregate":"sum",
+                    "type": "quantitative",
+                    "axis":{"tickCount":3, "grid": false},
+                    "title": "Total Valuation ($B)"
+                }
+            }
+        }
+    ]
+}

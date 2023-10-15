@@ -38,7 +38,7 @@
       "bind":{
         "input": "range",
         "max": 2200,
-        "min": 1,
+        "min": 100,
         "step": 100,
         "name": "Min Total Valuation: "
       }
