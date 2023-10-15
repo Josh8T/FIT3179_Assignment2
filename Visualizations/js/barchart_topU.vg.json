@@ -6,27 +6,34 @@
     "data": {
       "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
     },
-    "transform": [
+    "params": [
         {
-            "window": [{
-                "op":"row_number",
-                "as": "rank"
-            }],
-            "sort": [{"field": "Company", "order":"descending"}]
-        },
-        {"filter":"datum.rank < 10"}
+            "name": "company_shown",
+            "value":5,
+            "bind":{
+                "input": "range",
+                "max":30,
+                "min": 1,
+                "step": 1,
+                "name": "Top # of Companies: "
+            }
+        }
+    ],
+    "transform": [
+        {"filter":"datum.Rank <= company_shown"}
     ],
     "encoding": {
         "y":{
             "field": "Company",
             "type": "nominal",
-            "title": "Company",
-            "sort":"-x"
+            "title":null,
+            "sort":{"field":"Rank", "order":"ascending"}
         },
         "x":{
             "field": "Valuation ($B)",
             "type": "quantitative",
-            "title": "Valuation ($B)"
+            "title": "Valuation ($B)",
+            "axis":{"grid": false}
         }
     },
     "layer": [
@@ -36,8 +43,14 @@
                 "cornerRadiusEnd": 4
             },
             "encoding": {
-                "color":{"value":"#3CACAE"}
-            
+                "color":{"value":"#3CACAE"},
+                "tooltip":[
+                    {"field":"Valuation ($B)", "type": "quantitative", "title":"Current Valuation ($B)", "format":".2f"},
+                    {"field":"Country", "type": "nominal"},
+                    {"field":"City", "type": "nominal"},
+                    {"field":"Industry", "type": "nominal"},
+                    {"field":"Select Investors", "type": "nominal", "title":"Investors"}
+                ]
             }
         }
     ]
