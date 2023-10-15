@@ -31,11 +31,33 @@
         ],
         "name": "Continent: "
       }
+    },
+    {
+      "name": "valuation_min_shown",
+      "value":200,
+      "bind":{
+        "input": "range",
+        "max": 2200,
+        "min": 1,
+        "step": 100,
+        "name": "Min Total Valuation: "
+      }
     }
   ],
   "transform": [
     {
       "filter": "continent_selection == null || datum.Continent == continent_selection"
+    },
+    {
+      "window": [{
+        "op":"sum",
+        "field": "Valuation ($B)",
+        "as": "valuation_total"
+      }],
+      "groupby": ["Country"]
+    },
+    {
+      "filter":"datum.valuation_total <= valuation_min_shown"
     }
   ],
   "encoding": {
