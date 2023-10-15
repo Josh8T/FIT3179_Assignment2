@@ -15,14 +15,13 @@
           "type": "arc",
           "tooltip": true,
           "stroke": "#fff",
-          "innerRadius":40
+          "innerRadius":20
         }
       },
       {
         "mark": {
           "type": "text",
-          "radiusOffset": 10,
-          "radius": 180,
+          "radiusOffset": 20,
           "fontWeight":"bold",
           "fontSize": 14
         },
@@ -42,6 +41,14 @@
         "type": "quantitative",
         "aggregate": "count",
         "stack": "normalize"
+      },
+      "radius": {
+        "title": "Number of Unicorns",
+        "field": "Industry",
+        "aggregate":"count",
+        "scale": {
+          "type": "sqrt", "zero": true, "rangeMin": 20
+        }
       },
       "color": {
         "field": "Industry",
