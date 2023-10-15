@@ -1,0 +1,47 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 600,
+    "height": 600,
+    "title": "Highest Valuation Startup (As of July 2023)",
+    "data": {
+      "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+    },
+    "transform": [
+        {
+            "window": [{
+                "op":"row_number",
+                "as": "rank"
+            }],
+            "sort": [{"field": "Company", "order":"descending"}]
+        },
+        {"filter":"datum.rank < 10"}
+    ],
+    "encoding": {
+        "y":{
+            "field": "Company",
+            "type": "nominal",
+            "title": "Company",
+            "sort":"-x"
+        },
+        "x":{
+            "field": "Valuation ($B)",
+            "type": "quantitative",
+            "title": "Valuation ($B)"
+        }
+    },
+    "layer": [
+        {
+            "mark":{
+                "type": "bar",
+                "cornerRadiusEnd": 4
+            },
+            "encoding": {
+                "color":{"value":"#3CACAE"}
+            
+            }
+        }
+    ]
+    
+  }
+  
+  
