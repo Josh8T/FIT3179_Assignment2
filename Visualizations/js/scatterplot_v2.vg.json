@@ -1,0 +1,94 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 600,
+  "title": "Unicorn Startups Globally",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
+  },
+  "params": [
+    {
+      "name": "continent_selection",
+      "bind":{
+        "input": "select",
+        "options":[
+          null,
+          "North America",
+          "South America",
+          "Europe",
+          "Asia",
+          "Oceania",
+          "Africa"
+        ],
+        "labels": [
+          "Show All",
+          "North America",
+          "South America",
+          "Europe",
+          "Asia",
+          "Oceania",
+          "Africa"
+        ],
+        "name": "Continent: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "continent_selection == null || datum.Continent == continent_selection"
+    }
+  ],
+  "encoding": {
+    "y": {
+      "field": "Valuation ($B)",
+      "type": "quantitative",
+      "title": "Current Valuation ($B)"
+    },
+    "x": {
+      "field": "Date Joined",
+      "type": "temporal",
+      "title": "Date Joined",
+      "axis": {
+        "tickCount": 20
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark":{
+        "type": "circle",
+        "size":130
+      },
+      "encoding": {
+        "color":{
+          "field": "Continent",
+          "type": "nominal",
+          "scale":{
+            "domain":[
+              "North America",
+              "South America",
+              "Europe",
+              "Asia",
+              "Oceania",
+              "Africa"
+            ],
+            "range":[
+              "#3b6691", 
+              "#736ca3", 
+              "#ac6ea6", 
+              "#da7397", 
+              "#fc9783", 
+              "#f88380"
+            ]
+          }
+        },
+        "opacity":{"value":0.8},
+        "tooltip":[
+          {"field":"Company", "type": "nominal"},
+          {"field":"Date Joined", "type": "temporal", "timeUnit":"binnedutcyearmonthdate"}
+        ]
+      }
+    }
+  ]
+}
+

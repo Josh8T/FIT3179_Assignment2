@@ -61,17 +61,17 @@
     }
   ],
   "encoding": {
-    "x": {
+    "y": {
       "field": "Valuation ($B)",
       "type": "quantitative",
       "title": "Total Valuation ($B)",
       "aggregate": "sum"
     },
-    "y": {
+    "x": {
       "field": "Country",
       "type": "ordinal",
       "title": "Countries",
-      "sort": "-x"
+      "sort": "-y"
     }
   },
   "layer": [
