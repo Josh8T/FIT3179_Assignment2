@@ -136,7 +136,7 @@
         },
         {
             "width": "container",
-            "height": 400,
+            "height": 320,
             "mark":{"type": "area","line":true,"point":true},
             "encoding": {
                 "x":{

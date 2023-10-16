@@ -1,8 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "width": 600,
-    "height": 600,
-    "title": "Highest Valuation Startup (As of July 2023)",
+    "width": "container",
+    "height": 360,
     "data": {
       "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
     },
@@ -53,7 +52,19 @@
                 ]
             }
         }
-    ]
+    ],
+    "config": 
+    {
+      "title": {"fontSize": 16, "dy": -6}, 
+      "view": {"stroke": "transparent"},
+      "legend": {
+        "offset": -15, 
+        "titleFontSize": 12,
+        "labelFontSize": 12,
+        "orient": "right"
+      },
+      "background": "#FFFDF4"
+    }
     
   }
   

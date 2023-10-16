@@ -2,6 +2,10 @@ body *{
     font-family: 'Open Sans', serif;
 }
 
+body {
+    background-color: lightgrey;
+}
+
 .page {
     width: 1250px;
     background-color: #FFFDF4;
@@ -40,8 +44,12 @@ h2 {
 	padding-bottom: 12px;
 }
 
-.viz-container {
-    width: 1150px;
+.v-large-container{
+	width: 1150px;
+}
+
+.v-container {
+    width: 100%;
 }
 
 #introduction {
@@ -50,4 +58,5 @@ h2 {
 	line-height: 30px;
 	padding-top: 0px;
 }
+
 

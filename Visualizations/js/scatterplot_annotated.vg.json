@@ -1,8 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 600,
+  "width": 1100,
   "height": 600,
-  "title": "Unicorn Startups Globally",
   "data": {
     "url": "https://raw.githubusercontent.com/Josh8T/FIT3179/main/unicorn_startup_companies_cleaned.csv"
   },
@@ -82,6 +81,15 @@
               "#fc9783", 
               "#f88380"
             ]
+          }, 
+          "legend": 
+          {
+            "titleFontSize": 13, 
+            "labelFontSize": 12,
+            "orient": "none",
+            "legendX": 40,
+            "legendY": 20,
+            "clipHeight": 15
           }
         },
         "opacity":{"value":0.8},
@@ -98,16 +106,15 @@
         "align": "right",
         "baseline": "middle",
         "dx": -12,
-        "fontSize": 11.5,
-        "fontStyle": "italic",
-        "fontWeight":"bold"
+        "fontSize": 13,
+        "fontStyle": "italic"
       },
       "encoding": {
         "text": {"field": "Country", "type": "nominal"},
         "color": {"value": "black"},
         "opacity":{
           "condition": {
-            "test": "datum['Country'] == 'China' || datum['Country'] == 'United States of America'|| datum['Country'] =='India'|| datum['Country'] == 'Indonesia'|| datum['Country'] == 'Singapore'",
+            "test": "datum['Country'] == 'China' || datum['Country'] == 'United States of America' || datum['Country'] =='India'|| datum['Country'] == 'Indonesia'|| datum['Country'] == 'Singapore' || datum['Country'] == 'Canada'|| datum['Country'] =='Brazil'|| datum['Country'] =='Chile' || datum['Country'] == 'United Kingdom' || datum['Country'] == 'Germany' || datum['Country'] == 'Spain' || datum['Country'] == 'Australia' || datum['Country'] == 'Seychelles'",
             "value": 1
           },
           "value": 0
@@ -115,10 +122,16 @@
         "tooltip":[
           {"field": "Country", "type": "nominal"},
           {"aggregate": "count", "field": "Country", "type": "quantitative", "title": "Number of Unicorns"},
-          {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)"}
+          {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)"},
+          {"aggregate": "average", "field": "Valuation ($B)", "type": "quantitative", "title": "Average Valuation ($B)"},
+          {"aggregate": "max", "field": "Valuation ($B)", "type": "quantitative", "title": "Highest Valuation ($B)"}
         ]
       }
     }
-  ]
+  ], 
+  "config": {
+    "view": {"stroke": "transparent"},
+    "background": "#FFFDF4"
+  }
 }
 
