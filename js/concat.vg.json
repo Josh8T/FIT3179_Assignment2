@@ -127,7 +127,7 @@
                     "aggregate":"sum",
                     "type": "quantitative",
                     "axis":null,
-                    "title": "Total Valuation ($B)"
+                    "title": "Valuation ($B)"
                 },
                 "color":{
                     "value":"#DC4731"
@@ -151,7 +151,7 @@
                     "field":"Valuation ($B)",
                     "aggregate":"sum",
                     "type": "quantitative",
-                    "title": "Total Valuation ($B)"
+                    "title": "Valuation ($B)"
                 },
                 "color":{
                     "value":"#DC4731"
