@@ -3,8 +3,10 @@ body *{
 }
 
 body {
-    background-color: lightgrey;
+    background-color: #FFFDF4;
 }
+
+
 
 .page {
     width: 1250px;
@@ -14,6 +16,12 @@ body {
     padding-top: 10px;
 }
 
+p {
+	padding-top: 5px;
+	font-size: 16px;
+	text-align: center;
+	line-height: 25px;
+}
 
 
 h1 {
@@ -39,9 +47,8 @@ h2 {
 	font-weight: bolder;
 	text-align: center;
 	font-family: 'Garamond', serif;
-	width: 550px;
-	padding-top: 12px;
-	padding-bottom: 12px;
+	width: 600px;
+
 }
 
 .v-large-container{
@@ -59,4 +66,11 @@ h2 {
 	padding-top: 0px;
 }
 
+#map-linechart-concat-header{
+	width: 1250px;
+}
+
+#scatterplot-header{
+	width: 1250px;
+}
 
