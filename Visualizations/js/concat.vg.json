@@ -6,7 +6,7 @@
     },
     "vconcat":[
         {
-            "width": 800,
+            "width": "container",
             "height": 600,
             "layer": [
                 {
@@ -103,32 +103,7 @@
             ]
         },
         {
-            "width": 800,
-            "height": 400,
-            "mark":{"type": "area","line":true,"point":true},
-            "encoding": {
-                "x":{
-                    "field":"Date Joined",
-                    "type": "temporal",
-                    "scale":{"domain":{"param": "brush"}},
-                    "timeUnit":"binnedutcyearmonth",
-                    "title":"Date Joined (Month-Year)"
-                },
-                "y":{
-                    "field":"Valuation ($B)",
-                    "aggregate":"sum",
-                    "type": "quantitative",
-                    "title": "Total Valuation ($B)"
-                },
-                "tooltip":[
-                    {"aggregate": "count", "field": "Company", "type": "quantitative", "title": "Number of Startups Joined"},
-                    {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)", "format":".2f"},
-                    {"field":"Date Joined", "timeUnit":"binnedutcyearmonth", "title":"Date Joined"}
-                ]
-            }
-        },
-        {
-            "width":800,
+            "width":"container",
             "height":60,
             "mark":"line",
             "params": [
@@ -144,16 +119,61 @@
                 "x":{
                     "field":"Date Joined",
                     "type": "temporal",
-                    "timeUnit":"year"
+                    "timeUnit":"year",
+                    "axis":{"title":null}
                 },
                 "y":{
                     "field":"Valuation ($B)",
                     "aggregate":"sum",
                     "type": "quantitative",
-                    "axis":{"tickCount":3, "grid": false},
+                    "axis":null,
                     "title": "Total Valuation ($B)"
+                },
+                "color":{
+                    "value":"#DC4731"
                 }
             }
+        },
+        {
+            "width": "container",
+            "height": 400,
+            "mark":{"type": "area","line":true,"point":true},
+            "encoding": {
+                "x":{
+                    "field":"Date Joined",
+                    "type": "temporal",
+                    "scale":{"domain":{"param": "brush"}},
+                    "timeUnit":"binnedutcyearmonth",
+                    "title":"Date Joined (Month-Year)"
+                    
+                },
+                "y":{
+                    "field":"Valuation ($B)",
+                    "aggregate":"sum",
+                    "type": "quantitative",
+                    "title": "Total Valuation ($B)"
+                },
+                "color":{
+                    "value":"#DC4731"
+                },
+                "tooltip":[
+                    {"aggregate": "count", "field": "Company", "type": "quantitative", "title": "Number of Startups Joined"},
+                    {"aggregate": "sum", "field": "Valuation ($B)", "type": "quantitative", "title": "Total Valuation ($B)", "format":".2f"},
+                    {"field":"Date Joined", "timeUnit":"binnedutcyearmonth", "title":"Date Joined"}
+                ]
+            }
         }
-    ]
+    ],
+    "config": 
+    {
+      "title": {"fontSize": 16, "dy": -6}, 
+      "view": {"stroke": "transparent"},
+      "legend": {
+        "offset": -15, 
+        "titleFontSize": 12,
+        "labelFontSize": 12,
+        "orient": "right"
+      },
+      "background": "#FFFDF4"
+    }
 }

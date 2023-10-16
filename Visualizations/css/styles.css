@@ -1,8 +1,53 @@
-#scatter_plot {
-	top:100px;
-	bottom: 100px; 
-	left: 100px;
-	right: 100px;
-	/*height: 1000px;
-	width: 800px;*/
+body *{
+    font-family: 'Open Sans', serif;
 }
+
+.page {
+    width: 1250px;
+    background-color: #FFFDF4;
+    margin: auto;
+    padding: 50px;
+    padding-top: 10px;
+}
+
+
+
+h1 {
+	font-size: 80px;
+	color: #404040;
+	font-family: 'Garamond', serif;
+	text-align: center;
+	font-weight: bolder;
+}
+
+h3 {
+	font-size: 25px;
+	color:#404040;
+	opacity: 10;
+	font-weight: lighter;
+	text-align: center;
+	font-family: 'Garamond', serif;
+}
+
+h2 {
+	font-size: 35px;
+	color: #404040;
+	font-weight: bolder;
+	text-align: center;
+	font-family: 'Garamond', serif;
+	width: 550px;
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+
+.viz-container {
+    width: 1150px;
+}
+
+#introduction {
+	text-align: center;
+	font-size: 17px;
+	line-height: 30px;
+	padding-top: 0px;
+}
+
